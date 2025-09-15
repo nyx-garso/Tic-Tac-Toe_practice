@@ -1,22 +1,28 @@
+import { type ReactNode } from 'react';
+
 type Props = {
-    value: 'X' | 'O' | null;
+    children?: ReactNode;
     onClick: () => void;
     isHighlighted?: boolean;
 };
 
-
-export default function Square({ value, onClick, isHighlighted = false }: Props) {
+export default function Square({ children, onClick, isHighlighted = false }: Props) {
     return (
         <button
             onClick={onClick}
-            className={`w-20 h-20 md:w-24 md:h-24 flex items-center justify-center text-2xl md:text-3xl font-semibold border border-slate-200 dark:border-slate-700
+            className={`w-full h-full aspect-square flex items-center justify-center border border-slate-300 dark:border-slate-700
                 bg-white dark:bg-neutral-800 transition-colors
                 text-slate-700 dark:text-slate-100
                 focus:outline-emerald-300
+                rounded-lg
                 ${isHighlighted ? 'ring-2 ring-emerald-300' : ''}`}
-            aria-label={`square ${value ?? 'empty'}`}
+            aria-label={`square ${children ?? 'empty'}`}
         >
-            {value}
+            {children && (
+                <span className="text-2xl sm:text-3xl md:text-4xl font-bold">
+                    {children}
+                </span>
+            )}
         </button>
     );
 }
